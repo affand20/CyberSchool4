@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">CyberSchool</string>
+    <string name="login_button">Login</string>
+    <string name="title_activity_side_menu">sideMenu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_nav_menu">NavMenu</string>
+
+    <array name="semester">
+        <item>Semester 1</item>
+        <item>Semester 2</item>
+        <item>Semester 3</item>
+        <item>Semester 4</item>
+        <item>Semester 5</item>
+        <item>Semester 6</item>
+    </array>
+
+    <array name="mata_pelajaran">
+        <item>Matematika</item>
+        <item>Biologi</item>
+        <item>Kimia</item>
+        <item>Fisika</item>
+        <item>Bahasa Indonesia</item>
+        <item>Bahasa Inggris</item>
+        <item>Pendidikan Kewarganegaraan</item>
+        <item>Sejarah Indonesia</item>
+        <item>Fiqih</item>
+        <item>Aswaja</item>
+        <item>Aqidah Akhlak</item>
+        <item>Al-Quran Hadits</item>
+    </array>
+    <string name="title_activity_user">UserActivity</string>
+</resources>

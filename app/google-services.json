@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "963167301652",
+    "firebase_url": "https://cyberschool-24c5f.firebaseio.com",
+    "project_id": "cyberschool-24c5f",
+    "storage_bucket": "cyberschool-24c5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963167301652:android:a39831a83da95396",
+        "android_client_info": {
+          "package_name": "com.trydev.affan.cyberschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963167301652-dipsmdbgk9rc43u9uodurgq3ab05505t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trydev.affan.cyberschool",
+            "certificate_hash": "bbcd29de2ea2799f9ef10a5388fd009d6831b3c8"
+          }
+        },
+        {
+          "client_id": "963167301652-1veq94f3pmgiiq0j33m10g8sat2ik2t2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZZltL63XL6b5YzZDhsTiPKSgABHS1ixA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963167301652-1veq94f3pmgiiq0j33m10g8sat2ik2t2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
