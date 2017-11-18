@@ -31,6 +31,8 @@ public class LihatNilaiFragment extends Fragment{
     String idSiswa;
     String smt;
 
+    public static String jk;
+
     ListView listView;
 
     List<Nilai> nilaiList;
@@ -41,11 +43,7 @@ public class LihatNilaiFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if (getActivity()==((UserActivity) getActivity())){
-            ((UserActivity) getActivity()).setActionBarTitle("Nilai");
-        } else if(getActivity() == ((AdminActivity) getActivity())){
-            ((AdminActivity) getActivity()).setActionBarTitle("Nilai");
-        }
+        ((UserActivity) getActivity()).setActionBarTitle("Nilai");
         return inflater.inflate(R.layout.fragment_lihat_nilai, null);
     }
 
@@ -53,14 +51,13 @@ public class LihatNilaiFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toast.makeText(getActivity(), String.valueOf(getActivity()), Toast.LENGTH_SHORT).show();
-
         listView = (ListView) view.findViewById(R.id.nilai_per_semester);
         nilaiList = new ArrayList<>();
 
         semester = (Spinner) view.findViewById(R.id.semester);
 
         idSiswa = getArguments().getString("ID");
+        jk = getArguments().getString("JK_SISWA");
 
         dbNilai = FirebaseDatabase.getInstance().getReference("nilai").child(idSiswa);
 
@@ -79,6 +76,7 @@ public class LihatNilaiFragment extends Fragment{
     }
 
     private void LoadData(){
+
         dbNilai.child(smt).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -38,7 +38,7 @@ public class InputNilaiFragment extends Fragment {
     List<String> akun, id;
     EditText tugas, uh, uts, uas;
     Button submit_nilai;
-    String target;
+    String target, smt, mapel;
 
     @Nullable
     @Override
@@ -60,16 +60,24 @@ public class InputNilaiFragment extends Fragment {
         uts = (EditText) view.findViewById(R.id.nilai_uts);
         uas = (EditText) view.findViewById(R.id.nilai_uas);
 
+        tugas.setText("");
+        uh.setText("");
+        uts.setText("");
+        uas.setText("");
+
         submit_nilai = (Button) view.findViewById(R.id.submit_nilai);
 
         data_siswa = FirebaseDatabase.getInstance().getReference("AkunSiswa");
+
+        smt = semester.getSelectedItem().toString();
+        mapel = mata_pelajaran.getSelectedItem().toString();
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
                 target = id.get(i);
                 db_nilai = FirebaseDatabase.getInstance().getReference("nilai").child(target);
-                Toast.makeText(getActivity(), target, Toast.LENGTH_SHORT).show();
+                getLatestNilai(smt, mapel);
             }
 
             @Override
@@ -85,8 +93,6 @@ public class InputNilaiFragment extends Fragment {
                 String nilai_uh = uh.getText().toString();
                 String nilai_uts = uts.getText().toString();
                 String nilai_uas = uas.getText().toString();
-                String smt = semester.getSelectedItem().toString();
-                String mapel = mata_pelajaran.getSelectedItem().toString();
 
                 if (TextUtils.isEmpty(nilai_tugas)){
                     nilai_tugas = "Nilai tugas belum di input oleh admin";
@@ -139,6 +145,32 @@ public class InputNilaiFragment extends Fragment {
 
             }
         });
+    }
 
+    private void getLatestNilai(String semester, String matpel){
+        db_nilai.child(semester).child(matpel).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Nilai n = dataSnapshot.getValue(Nilai.class);
+                    if (getActivity()!=null){
+                        tugas.setText(n.getNilai_tugas());
+                        uh.setText(n.getNilai_uh());
+                        uts.setText(n.getNilai_uts());
+                        uas.setText(n.getNilai_uas());
+                    }
+                } else{
+                    tugas.setText("");
+                    uh.setText("");
+                    uts.setText("");
+                    uas.setText("");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

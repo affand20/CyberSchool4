@@ -13,16 +13,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AdminActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     int count;
     String uname;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +99,7 @@ public class AdminActivity extends AppCompatActivity
                 FragmentTransaction ft = fm.beginTransaction().setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,0,0);
 
                 Fragment fragment = getSupportFragmentManager().findFragmentByTag("DETAIL_SISWA");
+
                 if (fragment!=null && fragment.isVisible()){
                     fragment2 = new ListAkunFragment();
                     ft.replace(R.id.screen_area, fragment2);
@@ -103,14 +107,7 @@ public class AdminActivity extends AppCompatActivity
                     ft.commit();
                     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                     navigationView.setCheckedItem(R.id.list_akun);
-                } else if(getFragmentManager().findFragmentByTag("LIHAT_NILAI")!=null && getFragmentManager().findFragmentByTag("LIHAT_NILAI").isVisible()){
-                    fragment2 = new DetailSiswaFragment();
-                    ft.replace(R.id.screen_area, fragment2);
-                    count = 1;
-                    ft.commit();
-                    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-                    navigationView.setCheckedItem(R.id.list_akun);
-                }else{
+                } else{
                     fragment2 = new HomeFragment();
                     Bundle var = new Bundle();
                     var.putString("USERNAME", uname);

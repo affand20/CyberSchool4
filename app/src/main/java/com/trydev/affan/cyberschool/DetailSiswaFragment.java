@@ -30,9 +30,9 @@ import org.w3c.dom.Text;
 public class DetailSiswaFragment extends Fragment {
 
     String ID_SISWA;
-    String NAMA_SISWA;
+    public static String NAMA_SISWA;
     String TTL_SISWA;
-    String JK_SISWA;
+    public static String JK_SISWA;
     String KELAS_SISWA;
     String ALAMAT_SISWA;
     String EMAIL_SISWA;
@@ -41,7 +41,7 @@ public class DetailSiswaFragment extends Fragment {
     String jenis;
 
     EditText nama,ttl, alamat, email, kelas, password;
-    Button edit, simpan, lihatnilai;
+    Button edit, simpan;
     RadioGroup jk;
     RadioButton lk, pr;
 
@@ -138,7 +138,6 @@ public class DetailSiswaFragment extends Fragment {
 
         edit = (Button) view.findViewById(R.id.edit_info);
         simpan = (Button) view.findViewById(R.id.simpan_perubahan);
-        lihatnilai = (Button) view.findViewById(R.id.lihat_nilai);
 
         simpan.setEnabled(false);
 
@@ -227,20 +226,6 @@ public class DetailSiswaFragment extends Fragment {
             }
         });
 
-        lihatnilai.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle send = new Bundle();
-                send.putString("ID", ID_SISWA);
-
-                Fragment fragment = new LihatNilaiFragment();
-                fragment.setArguments(send);
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction().setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                ft.replace(R.id.screen_area, fragment, "LIHAT_NILAI");
-                ft.commit();
-            }
-        });
     }
 }
 

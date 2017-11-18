@@ -50,6 +50,9 @@ public class LoginActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
 
+        email.setText("");
+        password.setText("");
+
         listAkunAdmin = new ArrayList<>();
         listAkunSiswa = new ArrayList<>();
 
