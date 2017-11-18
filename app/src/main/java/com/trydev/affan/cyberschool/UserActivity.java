@@ -55,6 +55,8 @@ public class UserActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
+        navigationView.setItemIconTintList(null);
+
         navigationView.setCheckedItem(R.id.dashboard);
 
         navigationView.setNavigationItemSelectedListener(this);

@@ -58,6 +58,9 @@ public class AdminActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
+        navigationView.setItemIconTintList(null);
+
+
         //untuk menset default item yang di select pada navigation drawer ketika activity baru dibuat
         navigationView.setCheckedItem(R.id.home);
 
