@@ -1,5 +1,6 @@
 package com.trydev.affan.cyberschool;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -41,7 +42,7 @@ public class DetailSiswaFragment extends Fragment {
     String jenis;
 
     EditText nama,ttl, alamat, email, kelas, password;
-    Button edit, simpan;
+    Button edit, simpan, hapus;
     RadioGroup jk;
     RadioButton lk, pr;
 
@@ -80,6 +81,8 @@ public class DetailSiswaFragment extends Fragment {
         lk = (RadioButton) view.findViewById(R.id.lk);
         pr = (RadioButton) view.findViewById(R.id.pr);
         logo = (ImageView) view.findViewById(R.id.logo_siswa);
+
+        jenis = JK_SISWA;
 
         db_data_siswa = FirebaseDatabase.getInstance().getReference("AkunSiswa");
 
@@ -134,10 +137,12 @@ public class DetailSiswaFragment extends Fragment {
                     break;
                 }
             }
+
         });
 
         edit = (Button) view.findViewById(R.id.edit_info);
         simpan = (Button) view.findViewById(R.id.simpan_perubahan);
+        hapus = (Button) view.findViewById(R.id.hapus_akun);
 
         simpan.setEnabled(false);
 
@@ -174,40 +179,46 @@ public class DetailSiswaFragment extends Fragment {
                 String tt = ttl.getText().toString();
                 String kls = kelas.getText().toString();
                 String almt = alamat.getText().toString();
+                String mail = email.getText().toString();
+                String pass = password.getText().toString();
 
                 if (!TextUtils.isEmpty(nm)){
                     if (!TextUtils.isEmpty(tt)){
                         if (!TextUtils.isEmpty(kls)){
                             if (!TextUtils.isEmpty(almt)){
-                                if (!jenis.equals("")){
-                                    Siswa siswa = new Siswa(ID_SISWA, nm, tt, jenis, JURUSAN , kls, almt, EMAIL_SISWA, PASSWORD_SISWA);
-                                    db_data_siswa.child(ID_SISWA).setValue(siswa);
-                                    Toast.makeText(getActivity(), "Berhasil !", Toast.LENGTH_SHORT).show();
-                                    nama.setFocusable(false);
-                                    nama.setClickable(false);
-                                    nama.setLongClickable(false);
-                                    ttl.setFocusable(false);
-                                    ttl.setClickable(false);
-                                    ttl.setLongClickable(false);
-                                    alamat.setFocusable(false);
-                                    alamat.setClickable(false);
-                                    alamat.setLongClickable(false);
-                                    email.setFocusable(false);
-                                    email.setClickable(false);
-                                    email.setLongClickable(false);
-                                    kelas.setFocusable(false);
-                                    kelas.setClickable(false);
-                                    kelas.setLongClickable(false);
-                                    password.setFocusable(false);
-                                    password.setClickable(false);
-                                    password.setLongClickable(false);
-                                    jk.setFocusable(false);
-                                    jk.setClickable(false);
-                                    jk.setLongClickable(false);
-                                    lk.setEnabled(false);
-                                    pr.setEnabled(false);
-                                    simpan.setEnabled(false);
-                                    edit.setEnabled(true);
+                                if (!TextUtils.isEmpty(mail)){
+                                    if (!TextUtils.isEmpty(pass)){
+                                        Siswa siswa = new Siswa(ID_SISWA, nm, tt, jenis, JURUSAN , kls, almt, mail, pass);
+                                        db_data_siswa.child(ID_SISWA).setValue(siswa);
+                                        Toast.makeText(getActivity(), "Berhasil !", Toast.LENGTH_SHORT).show();
+                                        nama.setFocusable(false);
+                                        nama.setClickable(false);
+                                        nama.setLongClickable(false);
+                                        ttl.setFocusable(false);
+                                        ttl.setClickable(false);
+                                        ttl.setLongClickable(false);
+                                        alamat.setFocusable(false);
+                                        alamat.setClickable(false);
+                                        alamat.setLongClickable(false);
+                                        email.setFocusable(false);
+                                        email.setClickable(false);
+                                        email.setLongClickable(false);
+                                        kelas.setFocusable(false);
+                                        kelas.setClickable(false);
+                                        kelas.setLongClickable(false);
+                                        password.setFocusable(false);
+                                        password.setClickable(false);
+                                        password.setLongClickable(false);
+                                        jk.setFocusable(false);
+                                        jk.setClickable(false);
+                                        jk.setLongClickable(false);
+                                        lk.setEnabled(false);
+                                        pr.setEnabled(false);
+                                        simpan.setEnabled(false);
+                                        edit.setEnabled(true);
+                                    } else{
+                                        Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else{
                                     Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
                                 }
@@ -226,6 +237,26 @@ public class DetailSiswaFragment extends Fragment {
             }
         });
 
+        hapus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hapusAkun(ID_SISWA);
+                Fragment fragment = new ListAkunFragment();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction().setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                ft.replace(R.id.screen_area, fragment);
+                ft.commit();
+            }
+        });
+
+    }
+
+    private void hapusAkun(String id){
+        DatabaseReference s = FirebaseDatabase.getInstance().getReference("AkunSiswa").child(id);
+        DatabaseReference n = FirebaseDatabase.getInstance().getReference("nilai").child(id);
+        s.removeValue();
+        n.removeValue();
+        Toast.makeText(getActivity(), "Berhasil menghapus!", Toast.LENGTH_SHORT).show();
     }
 }
 

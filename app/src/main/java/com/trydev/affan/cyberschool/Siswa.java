@@ -16,9 +16,6 @@ public class Siswa {
     private String password;
 
     public Siswa(){}
-    public Siswa(String password){
-        this.password = password;
-    }
     public Siswa(String id, String nama, String ttl, String jk, String jurusan, String kelas, String alamat, String email, String password) {
         this.id = id;
         this.nama = nama;

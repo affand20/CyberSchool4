@@ -37,7 +37,6 @@ public class NilaiList extends ArrayAdapter<Nilai> {
         TextView nilai_uh = (TextView) listView.findViewById(R.id.nilai_uh);
         TextView nilai_uts = (TextView) listView.findViewById(R.id.nilai_uts);
         TextView nilai_uas = (TextView) listView.findViewById(R.id.nilai_uas);
-        TextView nilai_huruf = (TextView) listView.findViewById(R.id.nilai_huruf);
 
         Nilai nilai = listNilai.get(position);
 

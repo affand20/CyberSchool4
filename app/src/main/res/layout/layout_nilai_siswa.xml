@@ -130,15 +130,6 @@
             </TableRow>
 
         </TableLayout>
-        <TextView
-            android:id="@+id/nilai_huruf"
-            android:layout_weight="2"
-            android:textAlignment="center"
-            android:textSize="50sp"
-            android:textColor="@android:color/black"
-            android:text="A"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
     </LinearLayout>
 
 </LinearLayout>

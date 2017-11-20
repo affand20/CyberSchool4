@@ -6,6 +6,7 @@ import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,8 +43,9 @@ public class BuatAkunFragment extends Fragment {
     String jurusan="";
     String kls="";
 
+    String pass;
+
     DatabaseReference db;
-    String [] generate = {"1","7","0"};
 
     @Nullable
     @Override
@@ -85,10 +87,8 @@ public class BuatAkunFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId){
                     case R.id.lk : jk="Laki-laki";
-                        Toast.makeText(getActivity().getApplicationContext(), jk, Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.pr : jk="Perempuan";
-                        Toast.makeText(getActivity().getApplicationContext(), jk, Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -99,13 +99,10 @@ public class BuatAkunFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch(checkedId){
                     case R.id.ipa : jurusan="IPA";
-                        Toast.makeText(getActivity().getApplicationContext(), jurusan, Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.ips : jurusan="IPS";
-                        Toast.makeText(getActivity().getApplicationContext(), jurusan, Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.bahasa : jurusan="BAHASA";
-                        Toast.makeText(getActivity().getApplicationContext(), jurusan, Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -116,13 +113,10 @@ public class BuatAkunFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
                     case R.id.sepuluh : kls="10";
-                        Toast.makeText(getActivity().getApplicationContext(), kls, Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.sebelas: kls="11";
-                        Toast.makeText(getActivity().getApplicationContext(), kls, Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.duabelas : kls="12";
-                        Toast.makeText(getActivity().getApplicationContext(), kls, Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -143,7 +137,7 @@ public class BuatAkunFragment extends Fragment {
         final String nKelas = nomor_kelas.getText().toString();
         final String almt = alamat.getText().toString();
         final String mail = email.getText().toString();
-        final String pass = password.getText().toString();
+        pass = password.getText().toString();
 
         if (!TextUtils.isEmpty(nama)){
             if (jk!=""){
@@ -152,11 +146,23 @@ public class BuatAkunFragment extends Fragment {
                         if (jurusan!=""){
                             if (!TextUtils.isEmpty(nKelas)){
                                 if (!TextUtils.isEmpty(almt)){
-                                    String key = db.push().getKey();
-                                    String klas = kls+" "+jurusan+" "+nKelas;
-                                    Siswa siswa = new Siswa(key, nama, ttl2, jk, jurusan, klas, almt, mail, pass);
-                                    db.child(key).setValue(siswa);
-                                    Toast.makeText(getActivity().getApplicationContext(), "Berhasil !", Toast.LENGTH_SHORT).show();
+                                    if (!TextUtils.isEmpty(mail)){
+                                        if (TextUtils.isEmpty(pass)){
+                                            pass = "12345678";
+                                        }
+                                        String key = db.push().getKey();
+                                        String klas = kls+" "+jurusan+" "+nKelas;
+                                        Siswa siswa = new Siswa(key, nama, ttl2, jk, jurusan, klas, almt, mail, pass);
+                                        db.child(key).setValue(siswa);
+                                        Toast.makeText(getActivity().getApplicationContext(), "Berhasil !", Toast.LENGTH_SHORT).show();
+                                        Fragment fragment = new ListAkunFragment();
+                                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                                        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction().setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                                        ft.replace(R.id.screen_area, fragment);
+                                        ft.commit();
+                                    } else{
+                                        Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
+                                    }
                                 } else{
                                     Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
                                 }

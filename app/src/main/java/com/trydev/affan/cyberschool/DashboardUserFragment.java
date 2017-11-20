@@ -29,7 +29,7 @@ public class DashboardUserFragment extends Fragment {
 
     DatabaseReference dbSiswa;
     Siswa siswa;
-    TextView nama, ttl, jk, kelas, alamat, email;
+    TextView nama, ttl, jk, kelas, alamat, email, jurusan;
 
     EditText passworduser;
 
@@ -57,6 +57,7 @@ public class DashboardUserFragment extends Fragment {
         kelas = (TextView) view.findViewById(R.id.kelas_siswa);
         alamat = (TextView) view.findViewById(R.id.alamat_siswa);
         email = (TextView) view.findViewById(R.id.email_siswa);
+        jurusan = (TextView) view.findViewById(R.id.jurusan_siswa);
 
         avatar = (ImageView) view.findViewById(R.id.logo_siswa);
 
@@ -90,8 +91,27 @@ public class DashboardUserFragment extends Fragment {
         simpanpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getActivity(), "Sedang memproses data...", Toast.LENGTH_SHORT).show();
                 if (!TextUtils.isEmpty(passworduser.getText().toString())){
-                    //belajar update data firebase
+//                    //belajar update data firebase
+                    String tt = ttl.getText().toString();
+                    String jenis = jk.getText().toString();
+                    String jur = jurusan.getText().toString();
+                    String kls = kelas.getText().toString();
+                    String almt = alamat.getText().toString();
+                    String mail = email.getText().toString();
+                    String pass = passworduser.getText().toString();
+
+                    Siswa updateSiswa = new Siswa(id, username, tt, jenis, jur, kls, almt, mail, pass);
+                    dbSiswa.child(id).setValue(updateSiswa);
+                    Toast.makeText(getActivity(), "Berhasil !", Toast.LENGTH_SHORT).show();
+                    passworduser.setFocusable(false);
+                    passworduser.setClickable(false);
+                    passworduser.setLongClickable(false);
+                    simpanpassword.setEnabled(false);
+                    ubahpassword.setEnabled(true);
+                } else{
+                    Toast.makeText(getActivity(), "Gagal ! Password tidak boleh kosong !", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -114,6 +134,7 @@ public class DashboardUserFragment extends Fragment {
                     alamat.setText(siswa.getAlamat());
                     email.setText(siswa.getEmail());
                     passworduser.setText(siswa.getPassword());
+                    jurusan.setText(siswa.getJurusan());
                     if (siswa.getJk().equals("Laki-laki")){
                         avatar.setImageResource(R.drawable.avatar_male);
                     } else if (siswa.getJk().equals("Perempuan")){
