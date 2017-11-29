@@ -3,6 +3,7 @@ package com.trydev.affan.cyberschool;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -74,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                                     ketemu = true;
                                     Intent intent = new Intent(getApplicationContext(), AdminActivity.class);
                                     intent.putExtra("USERNAME", uname);
-                                    startActivity(intent);
+                                    delayer(intent);
                                     break;
                                 }
                             }
@@ -91,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Intent intent = new Intent(getApplicationContext(), UserActivity.class);
                                         intent.putExtra("ID_SISWA", idSiswa);
                                         intent.putExtra("USERNAME", uname);
-                                        startActivity(intent);
+                                        delayer(intent);
                                         break;
                                     }
                                 }
@@ -116,10 +117,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        pd = new ProgressDialog(LoginActivity.this);
-        pd.setMessage("Sedang membaca basis data...");
-        pd.show();
 
         getDBAdmin.addValueEventListener(new ValueEventListener() {
             @Override
@@ -154,6 +151,22 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Mohon periksa koneksi internet anda.", Toast.LENGTH_SHORT).show();
             }
         });
-        pd.dismiss();
+    }
+
+    private void delayer(final Intent intent){
+        pd = new ProgressDialog(this);
+        pd.setMessage("Silakan tunggu...");
+        pd.setCancelable(false);
+        pd.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                email.setText("");
+                password.setText("");
+                pd.dismiss();
+                startActivity(intent);
+            }
+        }, 1000);
+
     }
 }

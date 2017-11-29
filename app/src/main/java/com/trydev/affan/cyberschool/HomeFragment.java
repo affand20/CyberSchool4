@@ -89,7 +89,6 @@ public class HomeFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Memproses data...", Toast.LENGTH_SHORT).show();
                 setAdminInfo();
                 username.setFocusable(false);
                 username.setClickable(false);

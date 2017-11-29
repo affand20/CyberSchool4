@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,12 +49,7 @@ public class TambahGuruFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Memproses data...", Toast.LENGTH_SHORT).show();
-                progress = new ProgressDialog(getActivity());
-                progress.setTitle("Loading");
-                progress.setMessage("Memproses data...");
-                progress.setCancelable(false);
-                progress.show();
+
                 String nm = nama.getText().toString();
                 String mp = mapel.getText().toString();
                 String almt = alamat.getText().toString();
@@ -62,6 +58,11 @@ public class TambahGuruFragment extends Fragment {
                         if (!TextUtils.isEmpty(almt)){
                             Guru guru = new Guru(nm, mp, almt);
                             db_guru.child(nm).setValue(guru);
+                            Fragment fragment = new ListGuruFragment();
+                            FragmentManager fm = getActivity().getSupportFragmentManager();
+                            android.support.v4.app.FragmentTransaction ft = fm.beginTransaction().setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                            ft.replace(R.id.screen_area, fragment, "DETAIL_SISWA");
+                            ft.commit();
                             Toast.makeText(getActivity().getApplicationContext(), "Berhasil !", Toast.LENGTH_SHORT).show();
                         } else{
                             Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali", Toast.LENGTH_SHORT).show();
@@ -72,7 +73,6 @@ public class TambahGuruFragment extends Fragment {
                 } else{
                     Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali", Toast.LENGTH_SHORT).show();
                 }
-                progress.dismiss();
             }
         });
     }

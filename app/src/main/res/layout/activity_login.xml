@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.trydev.affan.cyberschool.LoginActivity"
     android:orientation="vertical"
-
+    android:background="@drawable/logincyberschool"
     >
 
     <ScrollView
@@ -27,36 +27,45 @@
                 android:layout_marginBottom="20dp"
                 />
             <TextView
+                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Email"
-                android:textColor="@android:color/black"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
                 />
 
             <EditText
+                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/email"
                 android:inputType="textEmailAddress"
                 />
             <TextView
+                android:layout_marginTop="18dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Password"
-                android:textColor="@android:color/black"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="@android:color/white"
                 />
 
             <EditText
+                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/password"
                 android:inputType="textPassword"
                 />
             <Button
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="28dp"
                 android:id="@+id/loginbutton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:background="@color/success"
                 android:text="@string/login_button" />
         </LinearLayout>
     </ScrollView>

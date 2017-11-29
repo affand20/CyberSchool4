@@ -174,7 +174,6 @@ public class DetailSiswaFragment extends Fragment {
         simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Memproses data...", Toast.LENGTH_SHORT).show();
                 String nm = nama.getText().toString();
                 String tt = ttl.getText().toString();
                 String kls = kelas.getText().toString();

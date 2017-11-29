@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+
+    >
 
     <ScrollView
         android:padding="15dp"
@@ -233,9 +235,13 @@
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:background="@color/info"
                         android:layout_height="wrap_content"
                         android:text="Ubah password"/>
                     <Button
+                        android:textColor="@color/white"
+                        android:background="@color/success"
                         android:layout_weight="1"
                         android:id="@+id/simpanpassword"
                         android:layout_marginTop="10dp"

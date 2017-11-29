@@ -91,7 +91,6 @@ public class DashboardUserFragment extends Fragment {
         simpanpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Sedang memproses data...", Toast.LENGTH_SHORT).show();
                 if (!TextUtils.isEmpty(passworduser.getText().toString())){
 //                    //belajar update data firebase
                     String tt = ttl.getText().toString();

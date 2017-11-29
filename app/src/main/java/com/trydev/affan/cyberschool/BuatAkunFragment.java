@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -46,6 +47,8 @@ public class BuatAkunFragment extends Fragment {
     String pass;
 
     DatabaseReference db;
+
+    ProgressDialog pd;
 
     @Nullable
     @Override
@@ -125,64 +128,83 @@ public class BuatAkunFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Memproses data...", Toast.LENGTH_SHORT).show();
+                pd = new ProgressDialog(getActivity());
+                pd.setMessage("Memproses data...");
+                pd.setCancelable(false);
+                pd.show();
+//                Toast.makeText(getActivity().getApplicationContext(), "Memproses data...", Toast.LENGTH_SHORT).show();
                 getData();
             }
         });
     }
 
     private void getData() {
-        final String nama = input_nama.getText().toString();
-        final String ttl2 = ttl.getText().toString();
-        final String nKelas = nomor_kelas.getText().toString();
-        final String almt = alamat.getText().toString();
-        final String mail = email.getText().toString();
-        pass = password.getText().toString();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                final String nama = input_nama.getText().toString();
+                final String ttl2 = ttl.getText().toString();
+                final String nKelas = nomor_kelas.getText().toString();
+                final String almt = alamat.getText().toString();
+                final String mail = email.getText().toString();
+                pass = password.getText().toString();
 
-        if (!TextUtils.isEmpty(nama)){
-            if (jk!=""){
-                if (!TextUtils.isEmpty(ttl2)){
-                    if (kls!=""){
-                        if (jurusan!=""){
-                            if (!TextUtils.isEmpty(nKelas)){
-                                if (!TextUtils.isEmpty(almt)){
-                                    if (!TextUtils.isEmpty(mail)){
-                                        if (TextUtils.isEmpty(pass)){
-                                            pass = "12345678";
+                if (!TextUtils.isEmpty(nama)){
+                    if (jk!=""){
+                        if (!TextUtils.isEmpty(ttl2)){
+                            if (kls!=""){
+                                if (jurusan!=""){
+                                    if (!TextUtils.isEmpty(nKelas)){
+                                        if (!TextUtils.isEmpty(almt)){
+                                            if (!TextUtils.isEmpty(mail)){
+                                                if (TextUtils.isEmpty(pass)){
+                                                    pass = "12345678";
+                                                }
+                                                String key = db.push().getKey();
+                                                String klas = kls+" "+jurusan+" "+nKelas;
+                                                Siswa siswa = new Siswa(key, nama, ttl2, jk, jurusan, klas, almt, mail, pass);
+                                                db.child(key).setValue(siswa);
+                                                pd.dismiss();
+                                                Toast.makeText(getActivity().getApplicationContext(), "Berhasil !", Toast.LENGTH_SHORT).show();
+                                                Fragment fragment = new ListAkunFragment();
+                                                FragmentManager fm = getActivity().getSupportFragmentManager();
+                                                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction().setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                                                ft.replace(R.id.screen_area, fragment);
+                                                ft.commit();
+                                            } else{
+                                                pd.dismiss();
+                                                Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else{
+                                            pd.dismiss();
+                                            Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
                                         }
-                                        String key = db.push().getKey();
-                                        String klas = kls+" "+jurusan+" "+nKelas;
-                                        Siswa siswa = new Siswa(key, nama, ttl2, jk, jurusan, klas, almt, mail, pass);
-                                        db.child(key).setValue(siswa);
-                                        Toast.makeText(getActivity().getApplicationContext(), "Berhasil !", Toast.LENGTH_SHORT).show();
-                                        Fragment fragment = new ListAkunFragment();
-                                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                                        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction().setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                                        ft.replace(R.id.screen_area, fragment);
-                                        ft.commit();
                                     } else{
+                                        pd.dismiss();
                                         Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
                                     }
                                 } else{
+                                    pd.dismiss();
                                     Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
                                 }
                             } else{
+                                pd.dismiss();
                                 Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
                             }
                         } else{
+                            pd.dismiss();
                             Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
                         }
                     } else{
+                        pd.dismiss();
                         Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
                     }
                 } else{
+                    pd.dismiss();
                     Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
                 }
-            } else{
-                Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
             }
-        } else{
-            Toast.makeText(getActivity().getApplicationContext(), "Gagal ! Mohon cek form kembali.", Toast.LENGTH_SHORT).show();
-        }
+        }, 1500);
+
     }
 }

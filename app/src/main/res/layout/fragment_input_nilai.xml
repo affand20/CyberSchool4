@@ -118,6 +118,8 @@
                 </TableRow>
             </TableLayout>
             <Button
+                android:textColor="@color/white"
+                android:background="@color/success"
                 android:id="@+id/submit_nilai"
                 android:layout_marginTop="25dp"
                 android:text="Submit"
