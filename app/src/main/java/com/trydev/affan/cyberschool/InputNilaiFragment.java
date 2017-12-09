@@ -35,7 +35,7 @@ public class InputNilaiFragment extends Fragment {
     Spinner spinner, semester, mata_pelajaran;
     DatabaseReference db_nilai, data_siswa;
     ProgressDialog pd;
-    List<String> akun, id;
+    List<String> akun, id, smstr, mtpl;
     EditText tugas, uh, uts, uas;
     Button submit_nilai;
     String target, smt, mapel;
@@ -60,6 +60,10 @@ public class InputNilaiFragment extends Fragment {
         uts = (EditText) view.findViewById(R.id.nilai_uts);
         uas = (EditText) view.findViewById(R.id.nilai_uas);
 
+        target = "";
+        smt = "";
+        mapel = "";
+
         tugas.setText("");
         uh.setText("");
         uts.setText("");
@@ -69,15 +73,18 @@ public class InputNilaiFragment extends Fragment {
 
         data_siswa = FirebaseDatabase.getInstance().getReference("AkunSiswa");
 
-        smt = semester.getSelectedItem().toString();
-        mapel = mata_pelajaran.getSelectedItem().toString();
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                tugas.setText("");
+                uh.setText("");
+                uts.setText("");
+                uas.setText("");
                 target = id.get(i);
                 db_nilai = FirebaseDatabase.getInstance().getReference("nilai").child(target);
-                getLatestNilai(smt, mapel);
+                if (!smt.equals("") && !mapel.equals("")){
+                    getLatestNilai(smt, mapel);
+                }
             }
 
             @Override
@@ -86,9 +93,57 @@ public class InputNilaiFragment extends Fragment {
             }
         });
 
+        semester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                tugas.setText("");
+                uh.setText("");
+                uts.setText("");
+                uas.setText("");
+                smt = semester.getSelectedItem().toString();
+                if (!target.equals("")){
+                    if (!smt.equals("") && !mapel.equals("")){
+                        getLatestNilai(smt, mapel);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mata_pelajaran.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                tugas.setText("");
+                uh.setText("");
+                uts.setText("");
+                uas.setText("");
+                mapel = mata_pelajaran.getSelectedItem().toString();
+                if (!target.equals("")){
+                    if (!smt.equals("") && !mapel.equals("")){
+                        getLatestNilai(smt, mapel);
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+
         submit_nilai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                smt = semester.getSelectedItem().toString();
+//
+//                mapel = mata_pelajaran.getSelectedItem().toString();
+                Toast.makeText(getActivity(), smt, Toast.LENGTH_SHORT).show();
                 String nilai_tugas = tugas.getText().toString();
                 String nilai_uh = uh.getText().toString();
                 String nilai_uts = uts.getText().toString();

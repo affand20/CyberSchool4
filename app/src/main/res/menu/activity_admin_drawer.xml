@@ -27,10 +27,6 @@
             android:icon="@drawable/ic_tambah_akun_siswa"
             android:title="Buat Akun Siswa Baru" />
         <item
-            android:id="@+id/about"
-            android:icon="@drawable/ic_about"
-            android:title="About" />
-        <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_logout"
             android:title="Logout" />

@@ -173,8 +173,6 @@ public class AdminActivity extends AppCompatActivity
         } else if (id == R.id.list_guru){
             fragment = new ListGuruFragment();
             count = 1;
-        } else if (id == R.id.about){
-
         } else if (id == R.id.logout){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Anda yakin mau logout ?")
