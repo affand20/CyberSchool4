@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.trydev.affan.cyberschool.LoginActivity"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     android:background="@drawable/logincyberschool"
     >
 
@@ -42,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/email"
+                android:backgroundTint="@color/white"
                 android:inputType="textEmailAddress"
                 />
             <TextView
@@ -49,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Password"
+                android:textStyle="bold"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textColor="@android:color/white"
                 />
@@ -58,6 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/password"
+                android:backgroundTint="@color/white"
                 android:inputType="textPassword"
                 />
             <Button

@@ -140,10 +140,6 @@ public class InputNilaiFragment extends Fragment {
         submit_nilai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                smt = semester.getSelectedItem().toString();
-//
-//                mapel = mata_pelajaran.getSelectedItem().toString();
-                Toast.makeText(getActivity(), smt, Toast.LENGTH_SHORT).show();
                 String nilai_tugas = tugas.getText().toString();
                 String nilai_uh = uh.getText().toString();
                 String nilai_uts = uts.getText().toString();

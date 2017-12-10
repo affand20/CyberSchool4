@@ -131,9 +131,11 @@ public class DetailSiswaFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
                     case R.id.lk : jenis = "Laki-laki";
+                        logo.setImageResource(R.drawable.avatar_male);
                     break;
 
                     case R.id.pr : jenis = "Perempuan";
+                        logo.setImageResource(R.drawable.avatar_female);
                     break;
                 }
             }
